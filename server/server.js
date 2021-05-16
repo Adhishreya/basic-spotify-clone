@@ -1,14 +1,16 @@
 const express=require('express')
 const SpotifyWebApi=require('spotify-web-api-node')
 const app=express();
-
-app.post('/login',(req,res)=>{
+app.get('/',(req,res)=>{
+  res.send('Hello')
+})
+app.post('/callback',(req,res)=>{
     const code=req.body.code
     //generating credentials for acccesss
     var spotifyApi = new SpotifyWebApi({
-        clientId: 'fcecfc72172e4cd267473117a17cbd4d',
-        clientSecret: 'a6338157c9bb5ac9c71924cb2940e1a7',
-        redirectUri: 'http://www.example.com/callback'
+        clientId: '24268e5408a34f3a96c353ab9414c6ce',
+        clientSecret: '3addc2ff48704ed08acc7918a173a6ac',
+        redirectUri: 'http://localhost:3000/callback/'
       });
       spotifyApi.authorizationCodeGrant(code).then(data=>{
           res.json({
@@ -19,5 +21,7 @@ app.post('/login',(req,res)=>{
           
 
       }).catch(()=>
-      res.sendStatus(400))
+      res.sendStatus(400),console.log('listening'))
 })
+
+app.listen(5000);
