@@ -4,29 +4,37 @@ const app=express();
 const cors=require('cors')
 app.use(cors())
 app.use(express.json())
+const lyricsFinder=require('lyrics-finder')
 app.get('/',(req,res)=>{
   res.send('Hello')
 })
 app.post('/refresh',(req,res)=>{
-  const refreshToken=req.headers.refreshToken;
+  const refreshToken=req.body.refreshToken;
+  console.log("request token is "+refreshToken)
   var spotifyApi = new SpotifyWebApi({
     clientId: '1518bdbffd05482982ff12bd0ee8801d',
     clientSecret: '8e0555e45af446a5a1abf749652ed51d',
     redirectUri: 'http://localhost:3000/callback/',
     refreshToken
   });
-  console.log(rerq.headers)
+  // console.log(req.headers)
   spotifyApi.refreshAccessToken().then(
     (data) =>{
-        console.log(data)
+        console.log(data.body);
+        res.json({
+      
+          accessToken:data.body.accessToken,
+          expiresIn:data.body.expiresIn,
+
+        })
     },
    
   ).catch(()=>res.sendStatus(400));
 })
 
 app.post('/login',(req,res)=>{
-    const code=req.headers.code
-    //generating credentials for acccesss
+    const code=req.body.code;
+    //generating credentials for acccess
     var spotifyApi = new SpotifyWebApi({
         clientId: '1518bdbffd05482982ff12bd0ee8801d',
         clientSecret: '8e0555e45af446a5a1abf749652ed51d',
@@ -45,6 +53,11 @@ app.post('/login',(req,res)=>{
       }).catch((error)=>
       {console.log(error)
         res.sendStatus(400)})
+});
+
+app.get('/lyrics',async(req,res)=>{
+  const lyrics=await lyricsFinder(req.query.artist,req.query.track)||"No lyrics found";
+  res.json({lyrics})
 })
 
 app.listen(5000,console.log('listening'));
