@@ -1,6 +1,8 @@
-https://www.npmjs.com/package/spotify-web-api-node
+- https://www.npmjs.com/package/spotify-web-api-node
 
-Day3: https://youtu.be/Xcet6msf3eE?list=PLxJPzY9lVfo6kWBxwE7yClxBjNie3iBdb&t=1581
+- https://youtu.be/Xcet6msf3eE
 
-# [User Authentication with OAuth 2.0](https://oauth.net/articles/authentication/)
+- [User Authentication with OAuth 2.0](https://oauth.net/articles/authentication/)
 <!-- npm run devStart -->
+
+- https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-flows

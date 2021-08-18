@@ -15,7 +15,7 @@ app.post('/refresh',(req,res)=>{
   var spotifyApi = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    redirectUri:  process.env.REDIRECT_URI,
+    redirectUri:  "http://localhost:3000/callback/",
     refreshToken
   });
   // console.log(req.headers)
@@ -39,7 +39,7 @@ app.post('/login',(req,res)=>{
     var spotifyApi = new SpotifyWebApi({
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      redirectUri:  process.env.REDIRECT_URI
+      redirectUri: "http://localhost:3000/callback/"
       });
       // console.log(code)
       spotifyApi.authorizationCodeGrant(code).then(data=>{
